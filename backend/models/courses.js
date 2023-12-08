@@ -3,7 +3,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const Schema = mongoose.Schema;
 
 const CoursesSchema = new Schema({
-    email: {
+    id: {
         type: String,
         required: true,
         unique: true
