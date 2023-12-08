@@ -12,5 +12,4 @@ const CoursesSchema = new Schema({
     prof: String
 })
 
-UserSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('Courses', CoursesSchema);
