@@ -11,11 +11,24 @@ const CourseSchema = new Schema({
     description: String,
     instructor: String,
     current_rating: Number,
-    material: [
+    material_direct: [
         {
-            type: String,
             title: String,
-            url: String
+            url: String,
+            uploader: {
+                type: Schema.Types.ObjectId,
+                ref: 'user'
+            }
+        }
+    ],
+    material_link: [
+        {
+            title: String,
+            url: String,
+            uploader: {
+                type: Schema.Types.ObjectId,
+                ref: 'user'
+            }
         }
     ],
     associated_posts: [

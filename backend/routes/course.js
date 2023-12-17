@@ -1,7 +1,10 @@
 const express = require("express");
 const Course = require("../controllers/course")
-const catchAsync = require("../utils/catchAsync");
 const { checkToken } = require("../middleware");
+const multer = require("multer");
+const { storage } = require("../cloudinary/index");
+const upload = multer({ storage });
+
 
 const router = express.Router();
 
@@ -11,5 +14,8 @@ router.route("/")
 router.route("/:id")
     .get(Course.singleView)// single coures view
 
-router.route("/add_material")
-    .post(checkToken, Course.addMaterial) 
+router.route("/add_material_direct")
+    .post(checkToken, upload.array('material'), Course.addMaterialDirect)
+
+router.route("/add_material_link")
+    .post(checkToken, Course.addMaterialLink)
