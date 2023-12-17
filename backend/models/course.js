@@ -2,14 +2,16 @@ const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 const Schema = mongoose.Schema;
 
-const CoursesSchema = new Schema({
+const CourseSchema = new Schema({
     id: {
         type: String,
         required: true,
         unique: true
     },
     name: String,
-    prof: String
+    description: String,
+    prof: String,
+    material
 })
 
-module.exports = mongoose.model('Courses', CoursesSchema);
+module.exports = mongoose.model('course', CourseSchema);
