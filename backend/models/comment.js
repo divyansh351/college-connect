@@ -16,8 +16,7 @@ const CommentSchema = new Schema({
     },
     date: {
         type: Date,
-        default: Date.now, // Assign the current date and time by default
-        // other validation options...
+        default: Date.now
     }
 })
 

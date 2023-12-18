@@ -14,10 +14,10 @@ module.exports.addComment = async (req, res) => {
             associated_post: post_id,
             uploader: user_id
         }
-        post.comments.push(new_comment);
-        await post.save();
         const comment = new Comment(new_comment);
         await comment.save();
+        post.comments.push(comment._id);
+        await post.save();
         res.status(200).json({ message: "successfully posted" })
     }
     catch (e) {

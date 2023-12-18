@@ -16,10 +16,10 @@ module.exports.addPost = async (req, res) => {
             associated_course: course_id,
             uploader: user_id
         }
-        course.associated_posts.push(new_post);
-        await course.save();
         const post = new Post(new_post);
         await post.save();
+        course.associated_posts.push(post._id);
+        await course.save();
         res.status(200).json({ message: "successfully posted" })
     }
     catch (e) {

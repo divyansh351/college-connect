@@ -10,6 +10,23 @@ module.exports.allView = async (req, res) => {
     }
 }
 
+module.exports.addCourse = async (req, res) => {
+    const {
+        code,
+        name,
+        description,
+        instructor
+    } = req.body;
+    const course = new Course({
+        code: code,
+        name: name,
+        description: description,
+        instructor: instructor
+    })
+    await course.save();
+    res.status(201).json({ message: "course succesfully added" });
+}
+
 module.exports.singleView = async (req, res) => {
     try {
         const course_id = req.params.id;
