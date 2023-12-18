@@ -26,10 +26,10 @@ module.exports.addPost = async (req, res) => {
         res.status(500).json({ message: e.message, name: e.name });
     }
 }
-module.exports.viewPost = async (req, res) => {
+module.exports.viewComments = async (req, res) => {
     try {
-        const postList = await Post.find({});
-        res.status(200).json(postList);
+        const post = await Post.findById(req.params.id).populate('comments');
+        res.status(200).json(post.comments);
     }
     catch (e) {
         res.status(500).json({ message: e.message, name: e.name });
