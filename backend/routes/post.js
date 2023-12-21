@@ -5,7 +5,7 @@ const { checkToken } = require("../middleware");
 const router = express.Router();
 
 router.route("/new")
-    .post(Post.addPost)
+    .post(checkToken, Post.addPost)
 
 router.route("/comments")
     .get(Post.viewComments)// single coures view

@@ -5,7 +5,7 @@ const { checkToken } = require("../middleware");
 const router = express.Router();
 
 router.route("/new")
-    .post(Comment.addComment)
+    .post(checkToken, Comment.addComment)
 
 router.route("/:id/delete")
     .delete(Comment.deleteComment)
