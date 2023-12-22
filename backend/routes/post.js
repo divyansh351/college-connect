@@ -8,7 +8,7 @@ router.route("/new")
     .post(checkToken, Post.addPost)
 
 router.route("/:id/comments")
-    .get(Post.viewComments)// single coures view
+    .post(Post.viewComments)// single coures view
 
 router.route("/:id/delete")
     .delete(Post.deletePost)
