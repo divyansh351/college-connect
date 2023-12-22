@@ -16,9 +16,9 @@ router.route("/:id")
     .get(Course.singleView)// single coures view
 
 router.route("/add_material_direct")
-    .post(upload.array('material'), Course.addMaterialDirect)
+    .post(checkToken, upload.array('material'), Course.addMaterialDirect)
 
 router.route("/add_material_link")
-    .post(Course.addMaterialLink)
+    .post(checkToken, Course.addMaterialLink)
 
 module.exports = router;

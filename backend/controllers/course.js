@@ -1,4 +1,6 @@
-const Course = require("../models/course")
+const jwt = require("jsonwebtoken");
+const Course = require("../models/course");
+const { authorize } = require("passport");
 
 module.exports.allView = async (req, res) => {
     try {
@@ -43,18 +45,29 @@ module.exports.addMaterialDirect = async (req, res) => {
     try {
         const {
             course_id,
-            user_id,
             title
         } = req.body;
         const course = await Course.findById(course_id);
-        const new_material = {
-            title: title,
-            url: (req.files[0]).path,
-            uploader: user_id
-        }
-        course.material_direct.push(new_material);
-        await course.save();
-        res.status(200).json({ message: "material succesfully uploaded" })
+        jwt.verify(req.token, process.env.JWT_KEY, async (err, authorizedData) => {
+            if (err) {
+                res.status(403).json({
+                    message: "protected Route"
+                });
+            } else {
+                if (authorizedData.hasOwnProperty("user")) {
+                    const new_material = {
+                        title: title,
+                        url: (req.files[0]).path,
+                        uploader: authorizedData.user._id
+                    }
+                    course.material_direct.push(new_material);
+                    await course.save();
+                    res.status(200).json({
+                        message: "material succesfully uploaded"
+                    });
+                }
+            }
+        })
     }
     catch (e) {
         res.status(500).json({ message: e.message, name: e.name });
@@ -65,19 +78,30 @@ module.exports.addMaterialLink = async (req, res) => {
     try {
         const {
             course_id,
-            user_id,
             title,
             link
         } = req.body;
         const course = await Course.findById(course_id);
-        const new_material = {
-            title: title,
-            url: link,
-            uploader: user_id
-        }
-        course.material_link.push(new_material);
-        await course.save();
-        res.status(200).json({ message: "material link succesfully saved" })
+        jwt.verify(req.token, process.env.JWT_KEY, async (err, authorizedData) => {
+            if (err) {
+                res.status(403).json({
+                    message: "protected Route"
+                });
+            } else {
+                if (authorizedData.hasOwnProperty("user")) {
+                    const new_material = {
+                        title: title,
+                        url: link,
+                        uploader: authorizedData.user._id
+                    }
+                    course.material_link.push(new_material);
+                    await course.save();
+                    res.status(200).json({
+                        message: "material link succesfully saved"
+                    });
+                }
+            }
+        })
     }
     catch (e) {
         res.status(500).json({ message: e.message, name: e.name });
