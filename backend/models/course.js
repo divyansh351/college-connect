@@ -42,6 +42,11 @@ const CourseSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'rating'
         }
+    ],
+    stars: [
+        {
+            type: Number
+        }
     ]
 })
 
