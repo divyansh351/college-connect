@@ -41,6 +41,9 @@ module.exports.addRating = async (req, res) => {
                         }
                         const rating = new Rating(new_rating);
                         await rating.save();
+                        for (let i = 0; i < 5; i++) {
+                            course.stars[i] = course.stars[i] + rating[`criteria${i + 1}`];
+                        }
                         course.ratings.push(rating._id);
                         await course.save();
                         res.status(200).json({
