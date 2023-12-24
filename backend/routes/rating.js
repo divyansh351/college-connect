@@ -9,3 +9,5 @@ router.route("/new")
 
 router.route("/:id/edit")
     .post(checkToken, Rating.editRating);
+
+module.exports = router;
