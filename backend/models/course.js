@@ -36,6 +36,12 @@ const CourseSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'post'
         }
+    ],
+    ratings: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'rating'
+        }
     ]
 })
 
