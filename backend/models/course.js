@@ -43,11 +43,10 @@ const CourseSchema = new Schema({
             ref: 'rating'
         }
     ],
-    stars: [
-        {
-            type: Number
-        }
-    ]
+    stars: {
+        type: [Number],
+        default: Array(10).fill(0),
+    }
 })
 
 module.exports = mongoose.model('course', CourseSchema);
